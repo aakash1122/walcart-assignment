@@ -2,6 +2,10 @@
   "name": "walcart-assignment",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Anwar Aakash",
+    "email": "aakaashhossain@gmail.com"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
