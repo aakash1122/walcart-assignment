@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { ApolloProvider } from "@apollo/client";
 
 const client = new ApolloClient({
-  uri: "https://countries.trevorblades.com",
+  uri: "https://devapiv2.walcart.com/graphql",
   cache: new InMemoryCache(),
 });
 
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>
       <ApolloProvider client={client}>
-        <Component {...pageProps} />;
+        <Component {...pageProps} />
       </ApolloProvider>
     </Provider>
   );
