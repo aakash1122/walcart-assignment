@@ -1,11 +1,12 @@
-import { constructTreeFromArray, ICategory, INodes } from "./index";
+import { ICategory } from "../@types";
+import { constructTreeFromArray } from "./index";
 
-const argument: ICategory[] = [
+const args: ICategory[] = [
   {
     uid: "1",
     name: "men",
     parent: {
-      uid: "null",
+      uid: null,
       name: null,
     },
     parents: [],
@@ -14,7 +15,7 @@ const argument: ICategory[] = [
     uid: "2",
     name: "women",
     parent: {
-      uid: "null",
+      uid: null,
       name: null,
     },
     parents: [],
@@ -27,32 +28,10 @@ describe("constructTreeFromArray()", () => {
   });
 
   test("should return two nodes with no childs", () => {
-    const expectation = [
-      {
-        uid: "1",
-        name: "men",
-        parent: {
-          uid: "null",
-          name: null,
-        },
-        parents: [],
-        childrens: [],
-      },
-      {
-        uid: "2",
-        name: "women",
-        parent: {
-          uid: "null",
-          name: null,
-        },
-        parents: [],
-        childrens: [],
-      },
-    ];
-    expect(constructTreeFromArray(argument)).toStrictEqual(expectation);
+    expect(constructTreeFromArray(args)).toHaveLength(2);
   });
 
-  test("should return two category with same child", () => {
+  test("should return two category with first one having child", () => {
     const child = [
       {
         uid: "100",
@@ -75,7 +54,7 @@ describe("constructTreeFromArray()", () => {
       },
     ];
     const arg = [
-      ...argument,
+      ...args,
       {
         uid: "100",
         name: "Jeans",
@@ -95,19 +74,13 @@ describe("constructTreeFromArray()", () => {
         ],
       },
     ];
-    const expectations: INodes = arg.slice(0, 2).map((obj) => ({
-      ...obj,
-      childrens: child,
-    }));
-
-    console.log(JSON.stringify(expectations, null, 4));
-    console.log(JSON.stringify(constructTreeFromArray(arg), null, 4));
+    const expectations: any = arg.slice(0, 2);
+    expectations[0].childrens = child;
 
     expect(constructTreeFromArray(arg)).toHaveLength(2);
     expect(constructTreeFromArray(arg)[0].childrens).toHaveLength(1);
-    expect(constructTreeFromArray(arg)[1].childrens).toHaveLength(1);
+    expect(constructTreeFromArray(arg)[0].childrens[0].name).toBe("Jeans");
+    expect(constructTreeFromArray(arg)[0].childrens[0].uid).toBe("100");
     expect(constructTreeFromArray(arg)[0]).toStrictEqual(expectations[0]);
-    expect(constructTreeFromArray(arg)[1]).toStrictEqual(expectations[1]);
-    expect(constructTreeFromArray(arg)).toStrictEqual(expectations);
   });
 });

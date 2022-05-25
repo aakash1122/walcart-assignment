@@ -5,10 +5,10 @@ export type Parent = {
   name: string;
 };
 export interface ICategory {
-  createdAt: string;
+  createdAt?: string;
   // __typename: string;
-  inActiveNote: any;
-  isActive: boolean;
+  inActiveNote?: any;
+  isActive?: boolean;
   name: string;
   parent: {
     uid: string | null;
@@ -20,7 +20,7 @@ export interface ICategory {
     name: string;
   }>;
   uid: string;
-  updatedAt: string;
+  updatedAt?: string;
 }
 export interface INode extends ICategory {
   childrens: INode[];
